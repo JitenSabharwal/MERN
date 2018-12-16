@@ -49,37 +49,33 @@ export const addUser = (data) => {
     dispatch(requestSent(data, ADD_USER_REQUEST))
     return postRequest(ADD_USER_ENDPOINT, data)
       .then(resp => {
-        const response = resp.data
-        const user = response
-        if (!response.ok) {
+        const {success, data, error} = resp.data
+        if (!success) {
           // If there was a problem, we want to
-          dispatch(requestFailed(user.message, ADD_USER_FAILURE))
-          return Promise.reject(user)
-        } else {
-          const {data} = user
-          requestSucess(data, ADD_USER_SUCCESS)
-        }
+          dispatch(requestFailed(error, ADD_USER_FAILURE))
+          return Promise.reject(data)
+        } 
+        dispatch(requestSucess(data, ADD_USER_SUCCESS))
       })
       .catch(err => console.log("Error: ", err))
   }
 }
 
-export const updateUser = (data) => {
+export const updateUser = (data, userId) => {
+  // console.log(data)
   return dispatch => {
     // We dispatch requestLogin to kickoff the call to the API
     dispatch(requestSent(data, UPDATE_USER_REQUEST))
-    return postRequest(UPDATE_USER_ENDPOINT, data)
+    return postRequest(`${UPDATE_USER_ENDPOINT}/${userId}`, data)
       .then(resp => {
-        const response = resp.data
-        const user = response
-        if (!response.ok) {
+        const {success, data, error} = resp.data
+        console.log(success)
+        if (!success) {
           // If there was a problem, we want to
-          dispatch(requestFailed(user.message, UPDATE_USER_FAILURE))
-          return Promise.reject(user)
-        } else {
-          const {data} = user
-          requestSucess(data, UPDATE_USER_SUCCESS)
-        }
+          dispatch(requestFailed(error, UPDATE_USER_FAILURE))
+          return Promise.reject(error)
+        } 
+        dispatch(requestSucess(data, UPDATE_USER_SUCCESS))
       })
       .catch(err => console.log("Error: ", err))
   }
@@ -87,7 +83,6 @@ export const updateUser = (data) => {
 
 export const selectUser = (data) => {
   return dispatch => {
-    console.log(data)
     dispatch(selectingUser(data, SELECT_USER))
   }
 }

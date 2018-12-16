@@ -4,7 +4,7 @@ import EnhancedTable from '../../../components/EnhancedTable'
 import { withStyles } from '@material-ui/core/styles';
 
 // Actions 
-import {selectUser} from '../../../actions'
+import { selectUser } from '../../../actions'
 let counter = 0;
 
 const styles = theme => ({
@@ -27,7 +27,6 @@ function createData(name, calories, fat, carbs, protein) {
 
 class UserTable extends Component {
   state = {
-    data: this.props.data,
     rows: [
       { id: 'firstName', numeric: false, disablePadding: true, label: 'FirstName' },
       { id: 'lastName', numeric: false, disablePadding: false, label: 'LastName' },
@@ -46,12 +45,16 @@ class UserTable extends Component {
     console.log('Found new Data', data)
     if (data.length) {
       this.props.selectUser(data[0])
+    } else {
+      this.props.selectUser({})
     }
   }
   render() {
+    console.log('Enhanced Table')
+    console.log(this.props.data)
     return (
       <EnhancedTable
-        data={this.state.data}
+        data={this.props.data}
         handleDelete={this.handleDelete}
         handleSelect={this.handleSelect}
         orderBy={this.state.orderBy}
@@ -64,10 +67,13 @@ class UserTable extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  data: state.user && state.user.list,
-  rows: []
-})
+const mapStateToProps = (state) => {
+  console.log("State List not rerendered")
+  return {
+    data: state.user.list,
+    rows: []
+  }
+}
 
 const UserTableElement = withStyles(styles)(UserTable)
-export default connect(mapStateToProps, {selectUser})(UserTableElement)
+export default connect(mapStateToProps, { selectUser })(UserTableElement)

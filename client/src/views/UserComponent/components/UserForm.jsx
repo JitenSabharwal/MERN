@@ -38,6 +38,7 @@ class Form extends React.Component {
     this.equipmentPhoto = React.createRef()
     this.addImage = this.addImage.bind(this)
     this.addUser = this.addUser.bind(this)
+    this.updateUser = this.updateUser.bind(this)
     this.prepareData = this.prepareData.bind(this)
     this.state = {
       profilePic: ''
@@ -54,16 +55,24 @@ class Form extends React.Component {
     if (this.state.profilePic) {
       newData.append('profilePic', this.state.profilePic, this.state.profilePic.name)
     }
+    if (this.props.userId) {
+      newData.append('id', this.props.userId)
+    }
     return newData
   }
   addUser(data) {
-    this.props.addUser(this.prepareData(data))
-      .then(console.log)
-      .then(console.log)
+    return this.props.addUser(this.prepareData(data))
+      // .then(console.log)
+      // .then(console.log)
+  }
+  updateUser(data) {
+    return this.props.updateUser(this.prepareData(data), this.props.userId)
+      // .then(console.log)
+      // .then(console.log)
   }
   render() {
     const { classes, pristine, submitting, handleSubmit } = this.props
-    console.log('Form stae change', this.state.data)
+    // console.log('Form stae change', this.state.data)
     return (
       <div className={classes.controll}>
         <form id="userForm" className={classes.form} onSubmit={handleSubmit(this.addUser)}>
@@ -132,7 +141,7 @@ class Form extends React.Component {
           {/* </input> */}
           {
             this.props.userId ?
-              (<Button variant="text" size="large" disabled={pristine || submitting} color="secondary" type="submit">
+              (<Button variant="text" size="large" disabled={pristine || submitting} color="secondary" onClick={handleSubmit(this.updateUser)}>
                 Update User
             </Button>)
               :
@@ -154,7 +163,8 @@ const AddUserForm = reduxForm({
 })(Form)
 
 const mapStateToProps = (state) => ({
-  initialValues: state.user && state.user.selected
+  initialValues: state.user && state.user.selected,
+  userId: state.user.selected && state.user.selected._id
 });
 
-export default connect(mapStateToProps, { addUser })(withStyles(formStyle)(AddUserForm))
+export default connect(mapStateToProps, { addUser, updateUser })(withStyles(formStyle)(AddUserForm))

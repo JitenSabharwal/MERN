@@ -1,7 +1,7 @@
 const User = require('../models/user')
 const proj = 'firstName lastName hobbies birthDate profilePic'
 const mongoose = require('mongoose')
-const {formatUser} = require('../utils/helpers')
+const {formatUser, outputUser} = require('../utils/helpers')
 /**
  * Function to add a new User
  * @param {object} req
@@ -9,8 +9,6 @@ const {formatUser} = require('../utils/helpers')
 const addUser = (req) => {
   return new Promise((resolve, reject) => {
     const { body, file = false } = req
-    // const { firstName, lastName, birthDate, hobbies = [] } = body
-    console.log(JSON.stringify(body))
     const _user = formatUser(body)
     if (file) {
       _user.profilePic = file.path
@@ -18,7 +16,7 @@ const addUser = (req) => {
     const user = new User(_user)
     return user.save((err, resp) => {
       if (err) reject(err)
-      else resolve({ data: resp })
+      else resolve({ data: outputUser(req, resp) })
     })
   })
 }
@@ -30,14 +28,14 @@ const addUser = (req) => {
 const updateUser = (req) => {
   return new Promise((resolve, reject) => {
     const { body, params } = req
-    const id = mongoose.Types.ObjectId(params.id)
+    const id = mongoose.Types.ObjectId(params.id || body.id)
     const update = {
       $set: formatUser(body),
     }
     User.updateOne({_id: id}, update, (err, resp) => {
       if (err) reject(err)
       else {
-        resolve({data: 'Updated Successfully'})
+        findUsers(req).then(resolve)
       }
     })
   })
@@ -46,11 +44,11 @@ const updateUser = (req) => {
 /**
  * Function to all Users
  */
-const findUsers = () => {
+const findUsers = (req) => {
   return new Promise((resolve, reject) => {
     User.find({}, proj, (err, resp) => {
       if (err) reject(err)
-      return resolve({ data: resp })
+      return resolve({ data: resp.map(u => outputUser(req, u)) })
     })
   })
 }
@@ -64,7 +62,7 @@ const findUser = (req) => {
     const id = mongoose.Types.ObjectId(params.id)
     User.findById(id, (err, resp) => {
       if (err) reject(err)
-      return resolve({ data: resp })
+      return resolve({ data: outputUser(req, resp) })
     })
   })
 }

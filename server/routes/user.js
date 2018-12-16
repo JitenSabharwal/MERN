@@ -17,7 +17,7 @@ const upload = require('../utils/db/storage')
  * Get Request: To get all the Users
  */
 router.get('/', (req, res, next) => {
-  findUsers().then(parse).then(result => res.send(result)).catch(e => {
+  findUsers(req).then(parse).then(result => res.send(result)).catch(e => {
     log.error(e)
     res.send(parse({ error: e }))
   })
@@ -37,7 +37,6 @@ router.get('/get/:id', (req, res, next) => {
  * POST Request: To add a new user
  */
 router.post('/addUser/', upload.single('profilePic'), (req, res, next) => {
-  console.log(req.body)
   try {
     addUser(req)
       .then(parse)
@@ -47,13 +46,14 @@ router.post('/addUser/', upload.single('profilePic'), (req, res, next) => {
         res.send(parse({ error: e }))
       })
   } catch (e) {
-    console.log(e)
+    log.error(e)
   }
 })
 /**
  * POST Request: To update a given user
  */
 router.post('/updateUser/:id', upload.single('profilePic'), (req, res, next) => {
+  log.info({query: req.query, body: req.body, file: req.file})
   updateUser(req)
     .then(parse)
     .then(result => res.send(result))

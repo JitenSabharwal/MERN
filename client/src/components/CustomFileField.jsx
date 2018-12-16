@@ -23,7 +23,7 @@ class CustomFileField extends Component {
       classes,
       addFile
     } = this.props
-    console.log(this.props)
+    // console.log(this.props)
     return (
       <React.Fragment>
         <input

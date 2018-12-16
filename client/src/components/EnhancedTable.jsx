@@ -10,8 +10,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import EnhancedTableHead from './EnhancedTableHead'
 import EnhancedTableToolbar from './EnhancedTableToolbar'
 
-// Actions
-import { } from '../actions'
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -65,19 +63,25 @@ class EnhancedTable extends React.Component {
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
+      // newSelected = newSelected.concat(selected, id);
+      newSelected = [id];
     } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
+      newSelected = [] || newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
+      // newSelected = newSelected.concat(selected.slice(0, -1));
     } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
-      );
+      // newSelected = newSelected.concat(
+      //   selected.slice(0, selectedIndex),
+      //   selected.slice(selectedIndex + 1),
+      // );
     }
     this.setState({ selected: newSelected });
-    this.props.handleSelect(id)
+    if (newSelected.length) {
+      this.props.handleSelect(id)
+    } else {
+      this.props.handleSelect('')
+    }
+    console.log(this.state.selected.length)
   };
 
   handleChangePage = (event, page) => {
@@ -110,7 +114,7 @@ class EnhancedTable extends React.Component {
               rowCount={data.length}
             />
             <TableBody>
-              {data
+              {this.props.data
                 .sort(getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(n => {

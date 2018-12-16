@@ -41,7 +41,27 @@ const formatUser = obj => {
   }
   return user
 }
+
+const outputUser = (req, obj) => {
+  try {
+    const user = {
+      _id: obj._id,
+      firstName: obj.firstName,
+      lastName: obj.lastName || '',
+      hobbies: obj.hobbies,
+      birthDate: obj.birthDate,
+    }
+    const baseUrl = req.protocol + '://' + req.get('host')
+    user.birthDate = moment(user.birthDate).format('YYYY-MM-DD')
+    user.hobbies = (user.hobbies || []).join(', ')
+    user.profilePic = `${baseUrl}/${obj.profilePic || 'default.jpeg'}`
+    return user
+  } catch (e) {
+    console.log(e)
+  }
+}
 module.exports = {
   parse,
   formatUser,
+  outputUser,
 }

@@ -18,14 +18,16 @@ function user(state = initialState, action) {
   switch (action.type) {
     case ADD_USER_REQUEST: return Object.assign({}, state, {
       isFetching: true,
-      user: action.payload
     })
 
-    case ADD_USER_SUCCESS: return Object.assign({}, state, {
+    case ADD_USER_SUCCESS: 
+    console.clear()
+    console.log(action.payload)
+    return Object.assign({}, state, {
       isFetching: false,
       list: [
-        ...state.user.list,
-        action.payload
+        ...state.list,
+        action.payload,
       ]
     })
 
@@ -41,6 +43,8 @@ function user(state = initialState, action) {
         errorMessage: action.payload.errorMessage
       })
     case UPDATE_USER_SUCCESS:
+      // console.clear()
+      console.log('Reducer', action.payload)
       return Object.assign({}, state, {
         isFetching: false,
         list: action.payload
