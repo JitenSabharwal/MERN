@@ -1,45 +1,61 @@
-// import {
-//   LOGIN_REQUEST,
-//   LOGIN_SUCCESS,
-//   LOGIN_FAILURE,
-//   LOGOUT_SUCCESS
-// } from '../helpers/constants'
+import {
+  ADD_USER_FAILURE,
+  ADD_USER_SUCCESS,
+  ADD_USER_REQUEST,
+  UPDATE_USER_FAILURE,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_REQUEST,
+  SELECT_USER,
+} from '../helpers/constants'
 
 const initialState = {
   isFetching: false,
-  isuserenticated: localStorage.getItem('id_token') ? true : false
+  isEditing: false,
+  list: []
 }
 
 function user(state = initialState, action) {
-  return state
-  // switch (action.type) {
-  //   case LOGIN_REQUEST: return Object.assign({}, state, {
-  //     isFetching: true,
-  //     isuserenticated: false,
-  //     user: action.creds
-  //   })
+  switch (action.type) {
+    case ADD_USER_REQUEST: return Object.assign({}, state, {
+      isFetching: true,
+      user: action.payload
+    })
 
-  //   case LOGIN_SUCCESS: return Object.assign({}, state, {
-  //     isFetching: false,
-  //     isuserenticated: true,
-  //     errorMessage: action.message
-  //   })
+    case ADD_USER_SUCCESS: return Object.assign({}, state, {
+      isFetching: false,
+      list: [
+        ...state.user.list,
+        action.payload
+      ]
+    })
 
-  //   case LOGIN_FAILURE:
-  //     return Object.assign({}, state, {
-  //       isFetching: false,
-  //       isuserenticated: false,
-  //       errorMessage: action.message
-  //     })
+    case ADD_USER_FAILURE:
+      return Object.assign({}, state, {
+        isFetching: false,
+        errorMessage: action.payload.errorMessage
+      })
 
-  //   case LOGOUT_SUCCESS:
-  //     return Object.assign({}, state, {
-  //       isFetching: true,
-  //       isuserenticated: false
-  //     })
-
-  //   default:
-  //     return state
-  // }
+    case UPDATE_USER_FAILURE:
+      return Object.assign({}, state, {
+        isFetching: false,
+        errorMessage: action.payload.errorMessage
+      })
+    case UPDATE_USER_SUCCESS:
+      return Object.assign({}, state, {
+        isFetching: false,
+        list: action.payload
+      })
+    case UPDATE_USER_REQUEST:
+      return Object.assign({}, state, {
+        isFetching: true,
+      })
+    case SELECT_USER : 
+    return Object.assign({}, state, {
+      isFetching: false,
+      selected: action.payload
+    })
+    default:
+      return state
+  }
 }
 export default user

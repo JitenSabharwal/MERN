@@ -10,6 +10,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import EnhancedTableHead from './EnhancedTableHead'
 import EnhancedTableToolbar from './EnhancedTableToolbar'
 
+// Actions
+import { } from '../actions'
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -48,9 +50,13 @@ class EnhancedTable extends React.Component {
   handleSelectAllClick = (event, checked) => {
     if (checked) {
       this.setState(state => ({ selected: state.data.map(n => n.id) }));
-      return;
+    } else {
+      this.setState({ selected: [] });
     }
-    this.setState({ selected: [] });
+    const length = this.state.selected.length
+    if (length) {
+      this.props.handleSelect(this.state.selected[length - 1])
+    }
   };
 
   handleClick = (event, id) => {
@@ -71,6 +77,7 @@ class EnhancedTable extends React.Component {
       );
     }
     this.setState({ selected: newSelected });
+    this.props.handleSelect(id)
   };
 
   handleChangePage = (event, page) => {
@@ -87,9 +94,10 @@ class EnhancedTable extends React.Component {
     const { classes, tableName, handleDelete } = this.props;
     const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
+
     return (
       <Paper className={classes.root}>
-        <EnhancedTableToolbar selected={selected} numSelected={selected.length} tableName={tableName} handleDelete={handleDelete}/>
+        <EnhancedTableToolbar selected={selected} numSelected={selected.length} tableName={tableName} handleDelete={handleDelete} />
         <div className={classes.tableWrapper}>
           <Table className={classes.table} aria-labelledby="tableTitle">
             <EnhancedTableHead
@@ -106,33 +114,33 @@ class EnhancedTable extends React.Component {
                 .sort(getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(n => {
-                  const isSelected = this.isSelected(n.id);
+                  const isSelected = this.isSelected(n._id);
                   return (
                     <TableRow
                       hover
-                      onClick={event => this.handleClick(event, n.id)}
+                      onClick={event => this.handleClick(event, n._id)}
                       role="checkbox"
                       aria-checked={isSelected}
                       tabIndex={-1}
-                      key={n.id}
+                      key={n._id}
                       selected={isSelected}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox checked={isSelected} />
                       </TableCell>
                       <TableCell component="th" scope="row" padding="none">
-                        {n.name}
+                        {n.firstName}
                       </TableCell>
-                      <TableCell numeric>{n.calories}</TableCell>
-                      <TableCell numeric>{n.fat}</TableCell>
-                      <TableCell numeric>{n.carbs}</TableCell>
-                      <TableCell numeric>{n.protein}</TableCell>
+                      <TableCell padding="none">{n.lastName}</TableCell>
+                      <TableCell padding="none">{n.hobbies}</TableCell>
+                      <TableCell padding="none">{n.birthDate}</TableCell>
+                      <TableCell scope="row" padding="none">{n.profilePic}</TableCell>
                     </TableRow>
                   );
                 })}
               {emptyRows > 0 && (
                 <TableRow style={{ height: 49 * emptyRows }}>
-                  <TableCell colSpan={6} />
+                  <TableCell colSpan={4} />
                 </TableRow>
               )}
             </TableBody>

@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
 import EnhancedTable from '../../../components/EnhancedTable'
 import { withStyles } from '@material-ui/core/styles';
+
+// Actions 
+import {selectUser} from '../../../actions'
 let counter = 0;
 
 const styles = theme => ({
@@ -23,39 +27,33 @@ function createData(name, calories, fat, carbs, protein) {
 
 class UserTable extends Component {
   state = {
-    data: [
-      createData('Cupcake', 305, 3.7, 67, 4.3),
-      createData('Donut', 452, 25.0, 51, 4.9),
-      createData('Eclair', 262, 16.0, 24, 6.0),
-      createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-      createData('Gingerbread', 356, 16.0, 49, 3.9),
-      createData('Honeycomb', 408, 3.2, 87, 6.5),
-      createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-      createData('Jelly Bean', 375, 0.0, 94, 0.0),
-      createData('KitKat', 518, 26.0, 65, 7.0),
-      createData('Lollipop', 392, 0.2, 98, 0.0),
-      createData('Marshmallow', 318, 0, 81, 2.0),
-      createData('Nougat', 360, 19.0, 9, 37.0),
-      createData('Oreo', 437, 18.0, 63, 4.0),
-    ],
+    data: this.props.data,
     rows: [
-      { id: 'name', numeric: false, disablePadding: true, label: 'Dessert (100g serving)' },
-      { id: 'calories', numeric: true, disablePadding: false, label: 'Calories' },
-      { id: 'fat', numeric: true, disablePadding: false, label: 'Fat (g)' },
-      { id: 'carbs', numeric: true, disablePadding: false, label: 'Carbs (g)' },
-      { id: 'protein', numeric: true, disablePadding: false, label: 'Protein (g)' },
+      { id: 'firstName', numeric: false, disablePadding: true, label: 'FirstName' },
+      { id: 'lastName', numeric: false, disablePadding: false, label: 'LastName' },
+      { id: 'hobbies', numeric: false, disablePadding: false, label: 'Hobbies' },
+      { id: 'birthDate', numeric: false, disablePadding: false, label: 'BirthDate' },
+      { id: 'url', numeric: false, disablePadding: false, label: 'Profile' },
     ],
     tableName: 'Users',
-    orderBy: 'calories',
-    handleDelete: (args) => {
-      console.log(args)
+    orderBy: 'firstName',
+  }
+  handleDelete = (args) => {
+    console.log(args)
+  }
+  handleSelect = (id) => {
+    const data = this.props.data.filter(u => u._id === id)
+    console.log('Found new Data', data)
+    if (data.length) {
+      this.props.selectUser(data[0])
     }
   }
   render() {
     return (
       <EnhancedTable
         data={this.state.data}
-        handleDelete={this.state.handleDelete}
+        handleDelete={this.handleDelete}
+        handleSelect={this.handleSelect}
         orderBy={this.state.orderBy}
         rowHeads={this.state.rows}
         rowsPerPage={10}
@@ -65,4 +63,11 @@ class UserTable extends Component {
     )
   }
 }
-export default withStyles(styles)(UserTable)
+
+const mapStateToProps = (state) => ({
+  data: state.user && state.user.list,
+  rows: []
+})
+
+const UserTableElement = withStyles(styles)(UserTable)
+export default connect(mapStateToProps, {selectUser})(UserTableElement)

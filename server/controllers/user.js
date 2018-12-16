@@ -9,13 +9,9 @@ const {formatUser} = require('../utils/helpers')
 const addUser = (req) => {
   return new Promise((resolve, reject) => {
     const { body, file = false } = req
-    const { firstName, lastName, birthDate, hobbies = [] } = body
-    const _user = {
-      firstName,
-      lastName,
-      birthDate,
-      hobbies: JSON.parse(hobbies),
-    }
+    // const { firstName, lastName, birthDate, hobbies = [] } = body
+    console.log(JSON.stringify(body))
+    const _user = formatUser(body)
     if (file) {
       _user.profilePic = file.path
     }

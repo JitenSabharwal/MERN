@@ -30,7 +30,7 @@ const formatUser = obj => {
     ...obj,
   }
   if (user.birthDate && typeof user.birthDate === 'string') {
-    user.birthDate = moment(user.birthDate, 'DD/MM/YYYY').toDate()
+    user.birthDate = moment(user.birthDate, 'YYYY-MM-DD').toDate()
   }
   try {
     user.hobbies = JSON.parse(user.hobbies)

@@ -37,13 +37,18 @@ router.get('/get/:id', (req, res, next) => {
  * POST Request: To add a new user
  */
 router.post('/addUser/', upload.single('profilePic'), (req, res, next) => {
-  addUser(req)
-    .then(parse)
-    .then(result => res.send(result))
-    .catch(e => {
-      log.error(e)
-      res.send(parse({ error: e }))
-    })
+  console.log(req.body)
+  try {
+    addUser(req)
+      .then(parse)
+      .then(result => res.send(result))
+      .catch(e => {
+        log.error(e)
+        res.send(parse({ error: e }))
+      })
+  } catch (e) {
+    console.log(e)
+  }
 })
 /**
  * POST Request: To update a given user
