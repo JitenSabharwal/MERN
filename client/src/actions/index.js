@@ -6,4 +6,4 @@ export {
   updateUser,
   deleteUser,
   deleteAllUsers
-} 
+}

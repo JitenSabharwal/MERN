@@ -1,12 +1,12 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import { createBrowserHistory } from "history"
-import { Router, Route, Switch } from "react-router"
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { createBrowserHistory } from 'history'
+import { Router, Route, Switch } from 'react-router'
 import { Provider } from 'react-redux'
-import indexRoutes from "./routes/index.jsx"
+import indexRoutes from './routes/index.jsx'
 import { configureStoreAsync } from './store'
 
-var hist = createBrowserHistory()
+const hist = createBrowserHistory()
 
 configureStoreAsync().then((store) => {
   ReactDOM.render(
@@ -19,6 +19,6 @@ configureStoreAsync().then((store) => {
         </Switch>
       </Router>
     </Provider>,
-    document.getElementById("root")
+    document.getElementById('root')
   )
 })

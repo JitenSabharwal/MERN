@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import ButtonBase from '@material-ui/core/ButtonBase';
-import Typography from '@material-ui/core/Typography';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import ButtonBase from '@material-ui/core/ButtonBase'
+import Typography from '@material-ui/core/Typography'
 
 const styles = theme => ({
   root: {
@@ -76,10 +76,10 @@ const styles = theme => ({
     left: 'calc(50% - 9px)',
     transition: theme.transitions.create('opacity'),
   },
-});
+})
 
-function ButtonBases(props) {
-  const { classes, image, onClick } = props;
+function ButtonBases (props) {
+  const { classes, image, onClick } = props
   return (
     <div className={classes.root}>
       <ButtonBase
@@ -101,9 +101,9 @@ function ButtonBases(props) {
         <span className={classes.imageBackdrop} />
         <span className={classes.imageButton}>
           <Typography
-            component="span"
-            variant="subtitle1"
-            color="inherit"
+            component='span'
+            variant='subtitle1'
+            color='inherit'
             className={classes.imageTitle}
           >
             {image.title}
@@ -112,11 +112,13 @@ function ButtonBases(props) {
         </span>
       </ButtonBase>
     </div>
-  );
+  )
 }
 
 ButtonBases.propTypes = {
   classes: PropTypes.object.isRequired,
-};
+  image: PropTypes.object.isRequired,
+  onClick: PropTypes.func.isRequired,
+}
 
-export default withStyles(styles)(ButtonBases);
+export default withStyles(styles)(ButtonBases)

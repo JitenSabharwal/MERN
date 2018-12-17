@@ -13,61 +13,61 @@ import {
 const initialState = {
   isFetching: false,
   isEditing: false,
-  list: []
+  list: [],
 }
 
-function user(state = initialState, action) {
+function user (state = initialState, action) {
   switch (action.type) {
     case ADD_USER_REQUEST: return Object.assign({}, state, {
       isFetching: true,
     })
 
-    case ADD_USER_SUCCESS: 
-    return Object.assign({}, state, {
-      isFetching: false,
-      list: [
-        ...state.list,
-        action.payload,
-      ]
-    })
+    case ADD_USER_SUCCESS:
+      return Object.assign({}, state, {
+        isFetching: false,
+        list: [
+          ...state.list,
+          action.payload,
+        ],
+      })
 
     case ADD_USER_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
-        errorMessage: action.payload.errorMessage
+        errorMessage: action.payload.errorMessage,
       })
 
     case UPDATE_USER_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
-        errorMessage: action.payload.errorMessage
+        errorMessage: action.payload.errorMessage,
       })
     case UPDATE_USER_SUCCESS:
       return Object.assign({}, state, {
         isFetching: false,
-        list: action.payload
+        list: action.payload,
       })
     case UPDATE_USER_REQUEST:
       return Object.assign({}, state, {
         isFetching: true,
       })
-    case SELECT_USER : 
-    return Object.assign({}, state, {
-      isFetching: false,
-      selected: action.payload
-    })
-    case DELETE_USER : 
-    return Object.assign({}, state, {
-      isFetching: false,
-      selected: {},
-      list: action.payload
-    })
-    case DELETE_ALL_USERS : 
-    return Object.assign({}, state, {
-      isFetching: false,
-      selected: {},
-      list: []
-    })
+    case SELECT_USER :
+      return Object.assign({}, state, {
+        isFetching: false,
+        selected: action.payload,
+      })
+    case DELETE_USER :
+      return Object.assign({}, state, {
+        isFetching: false,
+        selected: {},
+        list: action.payload,
+      })
+    case DELETE_ALL_USERS :
+      return Object.assign({}, state, {
+        isFetching: false,
+        selected: {},
+        list: [],
+      })
     default:
       return state
   }

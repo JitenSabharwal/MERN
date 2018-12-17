@@ -14,40 +14,40 @@ import {
   ADD_USER_ENDPOINT,
   UPDATE_USER_ENDPOINT,
   DELETE_USER_ENDPOINT,
-  DELETE_ALL_USER_ENDPOINT,
+  DELETE_ALL_USER_ENDPOINT
 } from '../helpers/endpoints'
 
 import { postRequest } from '../helpers/util'
-import {findUser} from '../helpers/util'
-function requestSent(payload, type) {
+
+function requestSent (payload, type) {
   return {
     type,
     isFetching: true,
-    payload
+    payload,
   }
 }
 
-function requestFailed(payload, type) {
+function requestFailed (payload, type) {
   return {
     type,
     isFetching: true,
-    payload
+    payload,
   }
 }
 
-function requestSucess(payload, type) {
+function requestSucess (payload, type) {
   return {
     type,
     isFetching: true,
-    payload
+    payload,
   }
 }
 
-function selectingUser(payload, type) {
+function selectingUser (payload, type) {
   return {
     type,
     isFetching: false,
-    payload
+    payload,
   }
 }
 export const addUser = (data) => {
@@ -64,7 +64,7 @@ export const addUser = (data) => {
         }
         dispatch(requestSucess(data, ADD_USER_SUCCESS))
       })
-      .catch(err => console.log("Error: ", err))
+      .catch(err => console.log('Error: ', err))
   }
 }
 
@@ -76,7 +76,6 @@ export const updateUser = (data, userId) => {
     return postRequest(`${UPDATE_USER_ENDPOINT}/${userId}`, data)
       .then(resp => {
         const { success, data, error } = resp.data
-        console.log(success)
         if (!success) {
           // If there was a problem, we want to
           dispatch(requestFailed(error, UPDATE_USER_FAILURE))
@@ -84,7 +83,7 @@ export const updateUser = (data, userId) => {
         }
         dispatch(requestSucess(data, UPDATE_USER_SUCCESS))
       })
-      .catch(err => console.log("Error: ", err))
+      .catch(err => console.log('Error: ', err))
   }
 }
 

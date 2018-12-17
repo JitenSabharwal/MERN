@@ -2,7 +2,7 @@ import { createStore, applyMiddleware } from 'redux'
 import logger from 'redux-logger'
 import thunk from 'redux-thunk'
 import rootReducer from '../reducers'
-import { composeWithDevTools } from 'redux-devtools-extension'
+// import { composeWithDevTools } from 'redux-devtools-extension'
 import { loadInitailState } from '../helpers/util'
 const middleware = [thunk, logger]
 
@@ -26,7 +26,7 @@ export const configureStoreAsync = () => {
         applyMiddleware(...middleware)
         // composeWithDevTools(applyMiddleware(...middleware))
       )
-      console.log('opened with error', error);
+      console.log('opened with error', error)
       return store
     })
-};
+}
