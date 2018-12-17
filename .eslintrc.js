@@ -1,8 +1,8 @@
 module.exports = {
-  extends: "standard",
+  extends: ["standard", "standard-react"],
+  "parser": "babel-eslint",
   rules: {
     semi: ["error", "never"],
-    "no-console": ["error"],
     "comma-dangle": [
       "error",
       {
@@ -35,7 +35,6 @@ module.exports = {
     "vars-on-top": "error",
     "import/no-unresolved": ["error", { commonjs: true, caseSensitive: true }],
     "no-new-require": "error",
-    "global-require": "error",
     "no-class-assign": "error",
     "no-const-assign": "error",
     "no-var": "error",
@@ -146,5 +145,11 @@ module.exports = {
   },
   env: {
     node: true
+  },
+  "globals": {
+    "localStorage": true,
+    "fetch": true,
+    "FormData": true,
+    "FileReader": true,
   }
 }

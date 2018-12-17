@@ -1,26 +1,24 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Tooltip from '@material-ui/core/Tooltip';
-
-
+import React from 'react'
+import PropTypes from 'prop-types'
+import TableCell from '@material-ui/core/TableCell'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
+import TableSortLabel from '@material-ui/core/TableSortLabel'
+import Checkbox from '@material-ui/core/Checkbox'
+import Tooltip from '@material-ui/core/Tooltip'
 
 class EnhancedTableHead extends React.Component {
   createSortHandler = property => event => {
-    this.props.onRequestSort(event, property);
+    this.props.onRequestSort(event, property)
   };
 
-  render() {
-    const { onSelectAllClick, order, orderBy, numSelected, rowCount } = this.props;
+  render () {
+    const { onSelectAllClick, order, orderBy, numSelected, rowCount } = this.props
     const rows = this.props.rows || []
     return (
       <TableHead>
         <TableRow>
-          <TableCell padding="checkbox">
+          <TableCell padding='checkbox'>
             <Checkbox
               indeterminate={numSelected > 0 && numSelected < rowCount}
               checked={numSelected === rowCount}
@@ -36,7 +34,7 @@ class EnhancedTableHead extends React.Component {
                 sortDirection={orderBy === row.id ? order : false}
               >
                 <Tooltip
-                  title="Sort"
+                  title='Sort'
                   placement={row.numeric ? 'bottom-end' : 'bottom-start'}
                   enterDelay={300}
                 >
@@ -49,11 +47,11 @@ class EnhancedTableHead extends React.Component {
                   </TableSortLabel>
                 </Tooltip>
               </TableCell>
-            );
+            )
           }, this)}
         </TableRow>
       </TableHead>
-    );
+    )
   }
 }
 
@@ -64,7 +62,7 @@ EnhancedTableHead.propTypes = {
   order: PropTypes.string.isRequired,
   orderBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired,
-};
+  rows: PropTypes.array.isRequired,
+}
 
 export default EnhancedTableHead
-

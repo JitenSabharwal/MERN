@@ -2,12 +2,13 @@ const mongoose = require('mongoose')
 const config = require('../../../config/config')
 const logger = require('../logger/logger')
 mongoose.Promise = global.Promise
-
-const connection = mongoose.connect(config.mongoUrl)
+const _nodeEnv = process.env.NODE_ENV || 'dev'
+const {mongoUrl} = config[_nodeEnv]
+const connection = mongoose.connect(mongoUrl)
 connection
   .then(db => {
     logger.info(
-      `Successfully connected to ${config.mongoUrl} MongoDB cluster in ${
+      `Successfully connected to ${mongoUrl} MongoDB cluster in ${
         config.env
       } mode.`
     )

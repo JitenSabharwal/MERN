@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux';
-import EnhancedTable from '../../../components/EnhancedTable'
-import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux'
+import EnhancedTable from '../../../components/EnhancedTable.jsx'
+import { withStyles } from '@material-ui/core/styles'
 
 import {findUser} from '../../../helpers/util'
-// Actions 
+// Actions
 import { selectUser, deleteUser, deleteAllUsers } from '../../../actions'
 
 const styles = theme => ({
@@ -18,7 +18,7 @@ const styles = theme => ({
   tableWrapper: {
     overflowX: 'auto',
   },
-});
+})
 class UserTable extends Component {
   state = {
     rows: [
@@ -46,7 +46,7 @@ class UserTable extends Component {
       this.props.selectUser({})
     }
   }
-  render() {
+  render () {
     return (
       <EnhancedTable
         data={this.props.data}
@@ -65,7 +65,7 @@ class UserTable extends Component {
 const mapStateToProps = (state) => {
   return {
     data: state.user.list,
-    rows: []
+    rows: [],
   }
 }
 

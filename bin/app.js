@@ -1,6 +1,6 @@
-var server = require('../server/server');
-var port = 8000
-const app  = server()
-app.listen(port, function() {
- console.log('running at localhost: ' + port);
-});
+const server = require('../server/server')
+const port = 8000
+const app = server()
+app.listen(port, () => {
+  console.log('running at localhost: ' + port)
+})

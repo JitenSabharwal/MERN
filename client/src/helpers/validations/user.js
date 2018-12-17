@@ -1,4 +1,4 @@
-//Sync Validaton handles validation for required and pattern fields
+// Sync Validaton handles validation for required and pattern fields
 export default function (values) {
   const errors = {}
   const requiredFields = [
@@ -7,7 +7,7 @@ export default function (values) {
   ]
   requiredFields.forEach(field => {
     if (!values[field]) {
-      errors[field] = 'Required'
+      errors[field] = 'This Field is Required'
     }
   })
   if (
