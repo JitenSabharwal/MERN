@@ -24,9 +24,8 @@ class Logger {
     process.stderr.write(JSON.stringify(output).grey + '\n')
   }
   error (e) {
-    const stack = e.stack.replace(/\n\s*/g, ' >>> ')
     const output = {
-      message: stack,
+      message: e,
       type: 'error',
     }
     process.stderr.write(JSON.stringify(output).red + '\n')

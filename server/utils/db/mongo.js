@@ -4,7 +4,6 @@ const logger = require('../logger/logger')
 mongoose.Promise = global.Promise
 
 const connection = mongoose.connect(config.mongoUrl)
-
 connection
   .then(db => {
     logger.info(
@@ -19,8 +18,8 @@ connection
       logger.info('Attempting to re-establish database connection.')
       mongoose.connect(config.mongoUrl)
     } else {
-      logger.error('Error while attempting to connect to database:')
-      logger.error(err)
+      logger.info('Error while attempting to connect to database:')
+      logger.error(err.toString())
     }
   })
 

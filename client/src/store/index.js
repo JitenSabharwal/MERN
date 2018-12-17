@@ -14,7 +14,8 @@ export const configureStoreAsync = () => {
       const store = createStore(
         rootReducer,
         initialStoreState,
-        composeWithDevTools(applyMiddleware(...middleware))
+        applyMiddleware(...middleware)
+        // composeWithDevTools()
       )
       return store
     })
@@ -22,7 +23,8 @@ export const configureStoreAsync = () => {
       const store = createStore(
         rootReducer,
         initialState,
-        composeWithDevTools(applyMiddleware(...middleware))
+        applyMiddleware(...middleware)
+        // composeWithDevTools(applyMiddleware(...middleware))
       )
       console.log('opened with error', error);
       return store
