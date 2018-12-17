@@ -48,7 +48,6 @@ class Form extends React.Component {
   }
   addImage (event) {
     if (event.target.files && event.target.files.length) {
-      console.log(event.target.files[0])
       this.setState({ profilePic: event.target.files[0], fileChanged: true })
     }
   }
@@ -64,17 +63,23 @@ class Form extends React.Component {
     return newData
   }
   addUser (data) {
-    return this.props.addUser(this.prepareData(data))
+    return this.props.addUser(this.prepareData(data)).then((resp) => {
+      this.props.reset()
+      this.setState({ profilePic: '', fileChanged: false })
+    })
   }
   updateUser (data) {
-    this.setState({fileChanged: false})
+    this.setState({ fileChanged: false })
+    this.props.reset()
     return this.props.updateUser(this.prepareData(data), this.props.userId)
   }
   render () {
     const { classes, pristine, submitting, handleSubmit } = this.props
-    let {imageUrl} = this.props
+    let { imageUrl } = this.props
     if (this.state.fileChanged) {
       imageUrl = this.state.profilePic
+    } else if (!imageUrl) {
+      imageUrl = '/uploads/default.jpeg'
     }
     console.log(imageUrl)
     return (
@@ -176,15 +181,16 @@ Form.propTypes = {
   addUser: PropTypes.func,
   updateUser: PropTypes.func,
   imageUrl: PropTypes.string.isRequired,
+  reset: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => {
-  const {user} = state
-  const {selected} = user
+  const { user } = state
+  const { selected } = user
   return {
     initialValues: user && selected,
     userId: selected && selected._id,
-    imageUrl: selected && (selected.profilePic || '/uploads/default.jpeg'),
+    imageUrl: selected ? selected.profilePic : '/uploads/default.jpeg',
   }
 }
 
