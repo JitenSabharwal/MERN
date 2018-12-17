@@ -31,7 +31,6 @@ const formStyle = theme => ({
   }
 });
 
-// const dangerColor = "#f44336";
 class Form extends React.Component {
   constructor(props) {
     super(props)
@@ -41,12 +40,14 @@ class Form extends React.Component {
     this.updateUser = this.updateUser.bind(this)
     this.prepareData = this.prepareData.bind(this)
     this.state = {
-      profilePic: ''
+      profilePic: '',
+      fileChanged: false
     }
   }
   addImage(event) {
     if (event.target.files && event.target.files.length) {
-      this.setState({ profilePic: event.target.files[0] })
+      console.log(event.target.files[0])
+      this.setState({ profilePic: event.target.files[0], fileChanged: true })
     }
   }
   prepareData(data) {
@@ -62,20 +63,31 @@ class Form extends React.Component {
   }
   addUser(data) {
     return this.props.addUser(this.prepareData(data))
-      // .then(console.log)
-      // .then(console.log)
   }
   updateUser(data) {
+    this.setState({fileChanged: false})
     return this.props.updateUser(this.prepareData(data), this.props.userId)
-      // .then(console.log)
-      // .then(console.log)
   }
   render() {
     const { classes, pristine, submitting, handleSubmit } = this.props
-    // console.log('Form stae change', this.state.data)
+    let imageUrl  = this.props.imageUrl
+    if (this.state.fileChanged) {
+      imageUrl = this.state.profilePic
+    }
+    console.log(imageUrl)
     return (
       <div className={classes.controll}>
         <form id="userForm" className={classes.form} onSubmit={handleSubmit(this.addUser)}>
+        <Field
+            name="profilePic"
+            type='file'
+            accept="image/*"
+            label="Enter Hobbies sparated by ,"
+            component={CustomFileField}
+            imageUrl={imageUrl}
+            hidden={true}
+            addFile={this.addImage}
+          />
           <Field
             name="firstName"
             component={CustomTextField}
@@ -130,18 +142,10 @@ class Form extends React.Component {
             label="Enter Hobbies sparated by ,"
             type="text"
           />
-          <Field
-            name="profilePic"
-            type='file'
-            accept="image/*"
-            component={CustomFileField}
-            hidden={true}
-            addFile={this.addImage}
-          />
-          {/* </input> */}
+          
           {
             this.props.userId ?
-              (<Button variant="text" size="large" disabled={pristine || submitting} color="secondary" onClick={handleSubmit(this.updateUser)}>
+              (<Button variant="text" size="large" disabled={!this.state.fileChanged && (pristine || submitting)} color="secondary" onClick={handleSubmit(this.updateUser)}>
                 Update User
             </Button>)
               :
@@ -162,9 +166,14 @@ const AddUserForm = reduxForm({
   enableReinitialize: true,
 })(Form)
 
-const mapStateToProps = (state) => ({
-  initialValues: state.user && state.user.selected,
-  userId: state.user.selected && state.user.selected._id
-});
+const mapStateToProps = (state) => {
+  const {user} = state
+  const {selected} = user
+  return {
+    initialValues: user && selected,
+    userId: selected && selected._id,
+    imageUrl: selected && selected.profilePic || "/uploads/default.jpeg"
+  }
+}
 
 export default connect(mapStateToProps, { addUser, updateUser })(withStyles(formStyle)(AddUserForm))

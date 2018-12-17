@@ -6,6 +6,8 @@ import {
   UPDATE_USER_SUCCESS,
   UPDATE_USER_REQUEST,
   SELECT_USER,
+  DELETE_USER,
+  DELETE_ALL_USERS
 } from '../helpers/constants'
 
 const initialState = {
@@ -21,8 +23,6 @@ function user(state = initialState, action) {
     })
 
     case ADD_USER_SUCCESS: 
-    console.clear()
-    console.log(action.payload)
     return Object.assign({}, state, {
       isFetching: false,
       list: [
@@ -43,8 +43,6 @@ function user(state = initialState, action) {
         errorMessage: action.payload.errorMessage
       })
     case UPDATE_USER_SUCCESS:
-      // console.clear()
-      console.log('Reducer', action.payload)
       return Object.assign({}, state, {
         isFetching: false,
         list: action.payload
@@ -57,6 +55,18 @@ function user(state = initialState, action) {
     return Object.assign({}, state, {
       isFetching: false,
       selected: action.payload
+    })
+    case DELETE_USER : 
+    return Object.assign({}, state, {
+      isFetching: false,
+      selected: {},
+      list: action.payload
+    })
+    case DELETE_ALL_USERS : 
+    return Object.assign({}, state, {
+      isFetching: false,
+      selected: {},
+      list: []
     })
     default:
       return state

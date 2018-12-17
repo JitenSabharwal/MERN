@@ -1,7 +1,9 @@
-import {addUser, updateUser,selectUser} from './user'
+import { addUser, updateUser, selectUser, deleteUser, deleteAllUsers } from './user'
 
 export {
   addUser,
   selectUser,
   updateUser,
+  deleteUser,
+  deleteAllUsers
 } 

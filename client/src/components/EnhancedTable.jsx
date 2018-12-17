@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
 import EnhancedTableHead from './EnhancedTableHead'
 import EnhancedTableToolbar from './EnhancedTableToolbar'
-
+import Avatar from '@material-ui/core/Avatar';
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -92,16 +92,20 @@ class EnhancedTable extends React.Component {
     this.setState({ rowsPerPage: event.target.value });
   };
 
+  handleDeleteClick = event => {
+    this.handleSelectAllClick()
+    this.props.handleDelete(event)
+  }
   isSelected = id => this.state.selected.indexOf(id) !== -1;
 
   render() {
-    const { classes, tableName, handleDelete } = this.props;
+    const { classes, tableName } = this.props;
     const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
     return (
       <Paper className={classes.root}>
-        <EnhancedTableToolbar selected={selected} numSelected={selected.length} tableName={tableName} handleDelete={handleDelete} />
+        <EnhancedTableToolbar selected={selected} numSelected={selected.length} tableName={tableName} handleDelete={this.handleDeleteClick} />
         <div className={classes.tableWrapper}>
           <Table className={classes.table} aria-labelledby="tableTitle">
             <EnhancedTableHead
@@ -138,7 +142,9 @@ class EnhancedTable extends React.Component {
                       <TableCell padding="none">{n.lastName}</TableCell>
                       <TableCell padding="none">{n.hobbies}</TableCell>
                       <TableCell padding="none">{n.birthDate}</TableCell>
-                      <TableCell scope="row" padding="none">{n.profilePic}</TableCell>
+                      <TableCell scope="row" padding="none">
+                        <Avatar alt="Remy Sharp" src={n.profilePic} />
+                      </TableCell>
                     </TableRow>
                   );
                 })}

@@ -27,11 +27,16 @@ const addUser = (req) => {
  */
 const updateUser = (req) => {
   return new Promise((resolve, reject) => {
-    const { body, params } = req
+    const { body, params, file } = req
     const id = mongoose.Types.ObjectId(params.id || body.id)
-    const update = {
-      $set: formatUser(body),
+    const _user = formatUser(body)
+    if (file) {
+      _user.profilePic = file.path
     }
+    const update = {
+      $set: _user,
+    }
+
     User.updateOne({_id: id}, update, (err, resp) => {
       if (err) reject(err)
       else {

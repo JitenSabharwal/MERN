@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import EnhancedTable from '../../../components/EnhancedTable'
 import { withStyles } from '@material-ui/core/styles';
 
+import {findUser} from '../../../helpers/util'
 // Actions 
-import { selectUser } from '../../../actions'
-let counter = 0;
+import { selectUser, deleteUser, deleteAllUsers } from '../../../actions'
 
 const styles = theme => ({
   root: {
@@ -19,12 +19,6 @@ const styles = theme => ({
     overflowX: 'auto',
   },
 });
-
-function createData(name, calories, fat, carbs, protein) {
-  counter += 1;
-  return { id: counter, name, calories, fat, carbs, protein };
-}
-
 class UserTable extends Component {
   state = {
     rows: [
@@ -38,11 +32,14 @@ class UserTable extends Component {
     orderBy: 'firstName',
   }
   handleDelete = (args) => {
-    console.log(args)
+    if (args.length === 1) {
+      this.props.deleteUser(args[0])
+    } else {
+      this.props.deleteAllUsers()
+    }
   }
   handleSelect = (id) => {
-    const data = this.props.data.filter(u => u._id === id)
-    console.log('Found new Data', data)
+    const data = findUser(this.props.data, id)
     if (data.length) {
       this.props.selectUser(data[0])
     } else {
@@ -50,8 +47,6 @@ class UserTable extends Component {
     }
   }
   render() {
-    console.log('Enhanced Table')
-    console.log(this.props.data)
     return (
       <EnhancedTable
         data={this.props.data}
@@ -68,7 +63,6 @@ class UserTable extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("State List not rerendered")
   return {
     data: state.user.list,
     rows: []
@@ -76,4 +70,4 @@ const mapStateToProps = (state) => {
 }
 
 const UserTableElement = withStyles(styles)(UserTable)
-export default connect(mapStateToProps, { selectUser })(UserTableElement)
+export default connect(mapStateToProps, { selectUser, deleteUser, deleteAllUsers })(UserTableElement)
