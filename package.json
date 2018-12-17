@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./bin/app",
-    "start -dev": "node ./bin/app",
+    "start": "node scripts/build.js && node ./bin/app",
+    "server": "node ./bin/app",
     "build": "node scripts/build.js",
     "test": "jest"
   },
