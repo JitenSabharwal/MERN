@@ -10,20 +10,15 @@ import Checkbox from '@material-ui/core/Checkbox'
 import EnhancedTableHead from './EnhancedTableHead.jsx'
 import EnhancedTableToolbar from './EnhancedTableToolbar.jsx'
 import Avatar from '@material-ui/core/Avatar'
-function desc (a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1
-  }
-  return 0
-}
 
-function getSorting (order, orderBy) {
-  return order === 'desc' ? (a, b) => desc(a, b, orderBy) : (a, b) => -desc(a, b, orderBy)
-}
+// Helpers
+import {getSorting} from '../helpers/util'
 
+/**
+ * Component return a table for given set of
+ *  rowHeads and data for the rows
+ * Comonent is selectable table
+ */
 class EnhancedTable extends React.Component {
   state = {
     order: 'asc',
@@ -63,17 +58,9 @@ class EnhancedTable extends React.Component {
     let newSelected = []
 
     if (selectedIndex === -1) {
-      // newSelected = newSelected.concat(selected, id);
       newSelected = [id]
     } else if (selectedIndex === 0) {
-      newSelected = [] || newSelected.concat(selected.slice(1))
-    } else if (selectedIndex === selected.length - 1) {
-      // newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      // newSelected = newSelected.concat(
-      //   selected.slice(0, selectedIndex),
-      //   selected.slice(selectedIndex + 1),
-      // );
+      newSelected = []
     }
     this.setState({ selected: newSelected })
     if (newSelected.length) {
@@ -81,7 +68,6 @@ class EnhancedTable extends React.Component {
     } else {
       this.props.handleSelect('')
     }
-    console.log(this.state.selected.length)
   };
 
   handleChangePage = (event, page) => {
@@ -96,6 +82,7 @@ class EnhancedTable extends React.Component {
     this.handleSelectAllClick()
     this.props.handleDelete(event)
   }
+
   isSelected = id => this.state.selected.indexOf(id) !== -1;
 
   render () {
@@ -176,7 +163,7 @@ class EnhancedTable extends React.Component {
 }
 
 EnhancedTable.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object,
   data: PropTypes.array.isRequired,
   handleDelete: PropTypes.func.isRequired,
   orderBy: PropTypes.string.isRequired,

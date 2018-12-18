@@ -13,6 +13,10 @@ const styles = theme => ({
   },
 })
 
+/**
+ * Component for a upload button as an image
+ *  if the url is providied or a simple button
+ */
 class CustomFileField extends Component {
   constructor (props) {
     super(props)
@@ -54,7 +58,6 @@ class CustomFileField extends Component {
       title: 'Click to change',
       width: '100%',
     }
-    // console.log(this.props)
     return (
       <React.Fragment>
         <input

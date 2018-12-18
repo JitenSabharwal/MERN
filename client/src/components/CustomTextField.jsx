@@ -1,6 +1,10 @@
 import React from 'react'
 import { TextField } from '@material-ui/core'
 
+/**
+ * Function creates atest input component
+ * @param {object} props
+ */
 const CustomTextField = ({
   input,
   label,

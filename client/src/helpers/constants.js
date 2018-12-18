@@ -7,3 +7,11 @@ export const UPDATE_USER_FAILURE = 'UPDATE_USER_FAILURE'
 export const DELETE_USER = 'DELETE_USER'
 export const DELETE_ALL_USERS = 'DELETE_ALL_USERS'
 export const SELECT_USER = 'SELECT_USER'
+export const USER_TABLE_HEADS = [
+  { id: 'firstName', numeric: false, disablePadding: true, label: 'FirstName' },
+  { id: 'lastName', numeric: false, disablePadding: false, label: 'LastName' },
+  { id: 'hobbies', numeric: false, disablePadding: false, label: 'Hobbies' },
+  { id: 'birthDate', numeric: false, disablePadding: false, label: 'BirthDate' },
+  { id: 'url', numeric: false, disablePadding: false, label: 'Profile' },
+]
+export const DEFAULT_URL = '/uploads/default.jpeg'

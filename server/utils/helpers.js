@@ -1,4 +1,5 @@
 const moment = require('moment')
+const log = require('./logger/logger')
 /**
  * Parse function to prepare output json
  * @param {object} obj {data: <object>, error:<boolean>, errorMsg: <String>}
@@ -42,6 +43,17 @@ const formatUser = obj => {
   return user
 }
 
+/**
+ * Function creates output user object from the given data
+ * @param {object} req
+ * @param {object} obj {
+      firstName: String,
+      lastName: String,
+      birthDate: Date/String(DD/MM/YYYY),
+      hobbies: [''],
+      profilePic: String,
+    }
+ */
 const outputUser = (req, obj) => {
   try {
     const user = {
@@ -57,9 +69,11 @@ const outputUser = (req, obj) => {
     user.profilePic = `${baseUrl}/${obj.profilePic || 'uploads/default.jpeg'}`
     return user
   } catch (e) {
-    console.log(e)
+    log.error(e)
   }
+  return {}
 }
+
 module.exports = {
   parse,
   formatUser,

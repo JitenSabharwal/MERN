@@ -6,28 +6,12 @@ import { withStyles } from '@material-ui/core/styles'
 import {findUser} from '../../../helpers/util'
 // Actions
 import { selectUser, deleteUser, deleteAllUsers } from '../../../actions'
-
-const styles = theme => ({
-  root: {
-    width: '100%',
-    marginTop: theme.spacing.unit * 3,
-  },
-  table: {
-    minWidth: 1020,
-  },
-  tableWrapper: {
-    overflowX: 'auto',
-  },
-})
+// Helpers
+import {USER_TABLE_HEADS} from '../../../helpers/constants'
+import UserTableStyle from '../../../helpers/ComponentStyles/UserTable.jsx'
 class UserTable extends Component {
   state = {
-    rows: [
-      { id: 'firstName', numeric: false, disablePadding: true, label: 'FirstName' },
-      { id: 'lastName', numeric: false, disablePadding: false, label: 'LastName' },
-      { id: 'hobbies', numeric: false, disablePadding: false, label: 'Hobbies' },
-      { id: 'birthDate', numeric: false, disablePadding: false, label: 'BirthDate' },
-      { id: 'url', numeric: false, disablePadding: false, label: 'Profile' },
-    ],
+    rowHeads: USER_TABLE_HEADS,
     tableName: 'Users',
     orderBy: 'firstName',
   }
@@ -53,7 +37,7 @@ class UserTable extends Component {
         handleDelete={this.handleDelete}
         handleSelect={this.handleSelect}
         orderBy={this.state.orderBy}
-        rowHeads={this.state.rows}
+        rowHeads={this.state.rowHeads}
         rowsPerPage={10}
         tableName={this.state.tableName}
         {...this.props}
@@ -69,5 +53,5 @@ const mapStateToProps = (state) => {
   }
 }
 
-const UserTableElement = withStyles(styles)(UserTable)
+const UserTableElement = withStyles(UserTableStyle)(UserTable)
 export default connect(mapStateToProps, { selectUser, deleteUser, deleteAllUsers })(UserTableElement)

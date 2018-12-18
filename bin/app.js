@@ -1,6 +1,9 @@
 const server = require('../server/server')
-const port = 8080
+const log = require('../server/utils/logger/logger')
+const port = process.env.PORT || 8080
+// Getting the express server
 const app = server()
-app.listen(process.env.PORT || port, () => {
-  console.log('running at localhost: ' + port)
+// Start listening server
+app.listen(port, () => {
+  log.info('running at localhost: ' + port)
 })

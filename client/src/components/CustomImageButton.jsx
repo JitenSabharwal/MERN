@@ -78,6 +78,7 @@ const styles = theme => ({
   },
 })
 
+// Custom Button with content and image in background
 function ButtonBases (props) {
   const { classes, image, onClick } = props
   return (

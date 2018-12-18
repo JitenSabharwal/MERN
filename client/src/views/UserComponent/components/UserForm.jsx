@@ -20,18 +20,9 @@ import { addUser, updateUser } from '../../../actions'
 // Components
 import CustomTextField from '../../../components/CustomTextField'
 import CustomFileField from '../../../components/CustomFileField'
-
-const formStyle = theme => ({
-  form: {
-    position: 'relative',
-    lineHeight: 4,
-    marginTop: '10px',
-  },
-  controll: {
-    padding: theme.spacing.unit * 2,
-    width: '100',
-  },
-})
+// Helpers
+import UserFormStyle from '../../../helpers/ComponentStyles/UserForm.jsx'
+import {DEFAULT_URL} from '../../../helpers/constants'
 
 class Form extends React.Component {
   constructor (props) {
@@ -79,7 +70,8 @@ class Form extends React.Component {
     if (this.state.fileChanged) {
       imageUrl = this.state.profilePic
     } else if (!imageUrl) {
-      imageUrl = '/uploads/default.jpeg'
+      // Getting default from constants
+      imageUrl = DEFAULT_URL
     }
     console.log(imageUrl)
     return (
@@ -194,4 +186,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { addUser, updateUser })(withStyles(formStyle)(AddUserForm))
+export default connect(mapStateToProps, { addUser, updateUser })(withStyles(UserFormStyle)(AddUserForm))
