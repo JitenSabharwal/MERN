@@ -11,7 +11,7 @@ const {
 
 const { parse } = require('../utils/helpers')
 const log = require('../utils/logger/logger')
-const upload = require('../utils/db/storage')
+const upload = require('../utils/fileStorage')
 
 /**
  * Get Request: To get all the Users
