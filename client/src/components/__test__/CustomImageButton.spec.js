@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import React from 'react'
-import Enzyme, {shallow, mount} from 'enzyme'
+import Enzyme, {shallow} from 'enzyme'
 import CustomImageButton from '../CustomImageButton.jsx'
 import Adapter from 'enzyme-adapter-react-16'
 import {DEFAULT_URL} from '../../helpers/constants'

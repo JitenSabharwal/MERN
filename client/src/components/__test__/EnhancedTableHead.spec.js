@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import React from 'react'
-import Enzyme, { shallow, mount } from 'enzyme'
+import Enzyme, { shallow } from 'enzyme'
 import EnhancedTableHead from '../EnhancedTableHead.jsx'
 import Adapter from 'enzyme-adapter-react-16'
 import { USER_TABLE_HEADS } from '../../helpers/constants'
