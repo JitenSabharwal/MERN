@@ -4,18 +4,20 @@ import thunk from 'redux-thunk'
 import rootReducer from '../reducers'
 // import { composeWithDevTools } from 'redux-devtools-extension'
 import { loadInitailState } from '../helpers/util'
+import {ALL_USER_ENDPOINT} from '../helpers/endpoints'
 const middleware = [thunk, logger]
 
 const initialState = {}
 // export default store
 export const configureStoreAsync = () => {
-  return loadInitailState()
+  // Loading the initial user list on app load
+  return loadInitailState(ALL_USER_ENDPOINT)
     .then((initialStoreState) => {
       const store = createStore(
         rootReducer,
         initialStoreState,
         applyMiddleware(...middleware)
-        // composeWithDevTools()
+        // composeWithDevTools(applyMiddleware(...middleware))
       )
       return store
     })

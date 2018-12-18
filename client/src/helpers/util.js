@@ -1,5 +1,8 @@
 import axios from 'axios'
-import {ALL_USER_ENDPOINT} from './endpoints'
+
+/**
+ * Function to do a prepare request headers for anything required
+ */
 export const perpareHeader = () => {
   const id = localStorage.getItem('id_token')
   const config = {
@@ -10,17 +13,27 @@ export const perpareHeader = () => {
   return config
 }
 
+/**
+ * Function to do a post Request
+ * @param {string} url
+ * @param {object} payload
+ */
 export const postRequest = (url, payload) => {
   const headers = perpareHeader()
   return axios.post(url, payload, headers)
 }
 
+/**
+ * Function to do a get Request
+ * @param {string} url
+ * @param {object} payload
+ */
 export const getRequest = (url, payload) => {
   const headers = perpareHeader()
   return axios.get(url, headers)
 }
 /**
- *
+ * Funtion to filter data out
  * @param {array} data [{id: 'redquired', ...user properties}]
  * @param {*} val
  * @param {string} key If not _id any other prop
@@ -29,9 +42,12 @@ export const findUser = (data, val, key = '_id') => {
   return data.filter(u => u[key] === val)
 }
 
-export const loadInitailState = () => {
+/**
+ * Functiom to load set an initial state
+ */
+export const loadInitailState = (url) => {
   return new Promise((resolve, reject) => {
-    getRequest(ALL_USER_ENDPOINT)
+    getRequest(url)
       .then(resp => {
         const {success, data} = resp.data
         if (!success) {
@@ -53,6 +69,16 @@ export const loadInitailState = () => {
       })
   })
 }
+
+/**
+ * Function returns -1, 0, 1
+ *  depending on the match of the
+ *  property orderBy
+ *  of elements a and b
+ * @param {object} a
+ * @param {object} b
+ * @param {string} orderBy
+ */
 function desc (a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1
@@ -62,7 +88,13 @@ function desc (a, b, orderBy) {
   }
   return 0
 }
-
+/**
+ * Function return a Function to sort elements
+ * by orderBy
+ * in the given order
+ * @param {string} order 'desc/asc'
+ * @param {string} orderBy '<string property of the sorting object>'
+ */
 export const getSorting = (order, orderBy) => {
   return order === 'desc' ? (a, b) => desc(a, b, orderBy) : (a, b) => -desc(a, b, orderBy)
 }

@@ -14,6 +14,8 @@ module.exports = function () {
   const app = express()
   // view engine setup
   app.set('views', path.join(__dirname, '../views'))
+  app.use('/uploads', express.static(path.join(__dirname, '../uploads/')))
+  app.use(express.static(path.join(__dirname, '../client/build/')))
   app.set('view engine', 'pug')
   app.use(logger('dev'))
   app.use(express.json())
@@ -21,8 +23,6 @@ module.exports = function () {
   app.use(bodyParser.json())
   app.use(express.urlencoded({ extended: false }))
   app.use(cookieParser())
-  app.use(express.static(path.join(__dirname, '../client/build/')))
-  app.use('/uploads', express.static(path.join(__dirname, '../uploads/')))
   app.use(helmet())
   app.use((req, res, next) => {
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization')
