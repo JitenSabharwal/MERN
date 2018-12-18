@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./bin/app",
-    "start-dev": "node ./bin/app",
+    "start": "nodemon ./bin/app",
+    "start:prod": "node ./bin/app",
     "build": "node scripts/build.js",
     "test": "jest --verbose --coverage"
   },
