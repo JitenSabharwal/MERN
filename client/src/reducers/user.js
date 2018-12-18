@@ -16,6 +16,12 @@ const initialState = {
   list: [],
 }
 
+/**
+ * Fucntion is the User reducer
+ * It is responsible for returning a new user state
+ * @param {object} state
+ * @param {object} action
+ */
 function user (state = initialState, action) {
   switch (action.type) {
     case ADD_USER_REQUEST: return Object.assign({}, state, {

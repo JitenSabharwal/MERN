@@ -30,6 +30,7 @@ class EnhancedTable extends React.Component {
   };
 
   handleRequestSort = (event, property) => {
+    // TO handle sorting when the table heads are clicked
     const orderBy = property
     let order = 'desc'
 
@@ -41,6 +42,7 @@ class EnhancedTable extends React.Component {
   };
 
   handleSelectAllClick = (event, checked) => {
+    // Handleselect all function
     if (checked) {
       this.setState(state => ({ selected: state.data.map(n => n.id) }))
     } else {
@@ -53,16 +55,17 @@ class EnhancedTable extends React.Component {
   };
 
   handleClick = (event, id) => {
+    // TO handle click on the table row
     const { selected } = this.state
     const selectedIndex = selected.indexOf(id)
     let newSelected = []
-
     if (selectedIndex === -1) {
       newSelected = [id]
     } else if (selectedIndex === 0) {
       newSelected = []
     }
     this.setState({ selected: newSelected })
+    // Calling the parent event handler to change the user form data
     if (newSelected.length) {
       this.props.handleSelect(id)
     } else {

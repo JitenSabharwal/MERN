@@ -32,6 +32,7 @@ class CustomFileField extends Component {
   }
   handleInputChange (event) {
     const {addFile} = this.props
+    // Change the url of the CustomImageButton
     this.readURL(event.target)
     addFile(event)
   }

@@ -50,6 +50,14 @@ function selectingUser (payload, type) {
     payload,
   }
 }
+
+/**
+ * This Action creator is used to Add a new user
+ * ToDo:
+ * Data request to server
+ * dispatch event to change the state
+ * @param {object} data
+ */
 export const addUser = (data) => {
   return dispatch => {
     // We dispatch requestLogin to kickoff the call to the API
@@ -68,8 +76,15 @@ export const addUser = (data) => {
   }
 }
 
+/**
+ * This Action creator is used to Update a user
+ * ToDo:
+ * Send update data request to server with
+ * Dispatch event to change the state
+ * @param {object} data
+ * @param {stirng} userId
+ */
 export const updateUser = (data, userId) => {
-  // console.log(data)
   return dispatch => {
     // We dispatch requestLogin to kickoff the call to the API
     dispatch(requestSent(data, UPDATE_USER_REQUEST))
@@ -87,8 +102,14 @@ export const updateUser = (data, userId) => {
   }
 }
 
+/**
+ * This Action creator is used to Delte a user
+ * ToDo:
+ * Send delete request to server with
+ * Dispatch event to change the state
+ * @param {stirng} userId
+ */
 export const deleteUser = (userId) => {
-  // console.log(data)
   return async (dispatch, getState) => {
     // We dispatch requestLogin to kickoff the call to the API
     const state = JSON.parse(JSON.stringify(getState()))
@@ -97,12 +118,26 @@ export const deleteUser = (userId) => {
     dispatch(requestSucess(newUserList, DELETE_USER))
   }
 }
+
+/**
+ * This Action creator is used to Delte all the users
+ * ToDo:
+ * Send deleteAll request to server with
+ * Dispatch event to change the state of user list to []
+ * @param {stirng} userId
+ */
 export const deleteAllUsers = () => {
   return async dispatch => {
     await postRequest(`${DELETE_ALL_USER_ENDPOINT}`)
     dispatch(requestSucess([], DELETE_ALL_USERS))
   }
 }
+/**
+ * Action Creator to select the given user
+ * Todo:
+ * Set the user.selected state  to the given data
+ * @param {object} data
+ */
 export const selectUser = (data) => {
   return dispatch => {
     dispatch(selectingUser(data, SELECT_USER))
