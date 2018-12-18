@@ -19,14 +19,7 @@ const styles = theme => ({
 
 class UserComponent extends React.Component {
   state = {
-    spacing: '16',
     editing: false,
-  };
-
-  handleChange = key => (event, value) => {
-    this.setState({
-      [key]: value,
-    })
   };
 
   render () {
