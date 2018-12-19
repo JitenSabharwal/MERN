@@ -82,3 +82,17 @@ It correctly bundles React in production mode and optimizes the build for the be
 
   #### index.js
   The start file for the react application
+### ./config
+  This fodler consist of all the webpack configurations, mongo config env and paths
+### ./scripts
+  This folder consist of the react app build and start scripts
+### ./server
+  This folder consist of the backend express server application, it contains 
+  - routes : This folder consist of the app routes
+  - controllers : This folder consist of the buusuness logic for the routes
+  - models : This folder consist for db schemas
+  - test : This folder consist of the test files
+  - utils : This folder consist helpers 
+  - server.js : This is the express application that is being used in ./bin/app.js to serve the server
+### ./uploads
+This folder holds the uploaded images
