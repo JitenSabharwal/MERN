@@ -32,7 +32,53 @@ Launches the test runner in the interactive watch mode.<br>
 Builds the app for production to the `build` folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+## Folder Structure
+- bin
+- client
+- config
+- scripts
+- uploads
+- .eslintignore
+- .eslintrc.js
+- .gitignore
+- package.json
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### ./bin
+  This folder contains the main app (app.js) file which is started when you runu npm start
+  The app will run on default `$PORT 8080`
+  You can also run the app on a separate port by 
+  `export PORT=2020`
+  writing this line on your terminal. Then the app will start on the provided PORT number
+
+### ./client
+  This folder has the following things
+  #### build 
+   This folder holds the file
+  
+  #### src
+   This the source folder that contains all the files for the build.
+
+  #### actions
+  This folder consist action creators
+  
+  #### components
+  This folder consist of all the common components
+  
+  #### helpers
+  This folder consist of validations, ComponentStyles, contant, endpoints and util
+
+  #### reducers
+  This folder consist of the reducer logic for managing state
+
+  #### routers
+  These consist of the component routers
+
+  #### store
+  Contains the store file 
+  #### views
+  This folder contains the view component for the user
+  This folder consist of UserComponent that imports
+  UserForm and UserTable
+
+  #### index.js
+  The start file for the react application
