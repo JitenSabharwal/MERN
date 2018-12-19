@@ -53,7 +53,7 @@ It correctly bundles React in production mode and optimizes the build for the be
 ### ./client
   This folder has the following things
   #### build 
-   This folder holds the file
+   This folder holds the build file that will be generated when you run `npm run build`
   
   #### src
    This the source folder that contains all the files for the build.
