@@ -47,6 +47,10 @@ class CheckboxListSecondary extends React.Component {
 
   render () {
     const { classes, data } = this.props
+    const primaryText = (value) => {
+      const str = `${value.firstName || ''} ${value.lastName || ''}`
+      return str.length > 30 ? str.substring(0, 25) + '...' : str
+    }
     return (
       <List dense className={classes.root}>
         {data.map(value => (
@@ -58,7 +62,7 @@ class CheckboxListSecondary extends React.Component {
               />
             </ListItemAvatar>
             <ListItemText
-              primary={`${value.firstName || ''} ${value.lastName || ''}`}
+              primary={primaryText(value)}
               secondary={
                 <React.Fragment>
                   <Typography component='span' className={classes.inline} color='textPrimary'>
