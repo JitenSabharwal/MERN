@@ -1,11 +1,12 @@
 import { createStore, applyMiddleware } from 'redux'
-import logger from 'redux-logger'
+// import logger from 'redux-logger'
 import thunk from 'redux-thunk'
 import rootReducer from '../reducers'
 // import { composeWithDevTools } from 'redux-devtools-extension'
 import { loadInitailState } from '../helpers/util'
 import {ALL_USER_ENDPOINT} from '../helpers/endpoints'
-const middleware = [thunk, logger]
+// const middleware = [thunk, logger]
+const middleware = [thunk]
 
 const initialState = {}
 // export default store

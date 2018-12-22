@@ -1,10 +1,12 @@
 import React from 'react'
+// import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import { Hidden } from '@material-ui/core'
 import UserTable from './components/UserTable.jsx'
+import UserMobileTable from './components/UserMobileTable.jsx'
 import AddUser from './components/UserForm.jsx'
-
+import UserMobileDrawer from './components/UserMobileDrawer.jsx'
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -21,8 +23,11 @@ class UserComponent extends React.Component {
   state = {
     editing: false,
   };
-
+  handleChange = () => {
+    this.setState({ editing: !this.state.editing })
+  }
   render () {
+    // const { classes } = this.props
     return (
       <Grid container spacing={16}>
         {/* For Bigger Screens */}
@@ -38,23 +43,25 @@ class UserComponent extends React.Component {
         </Hidden>
         {/* For Smaller Screens */}
         <Hidden smUp>
-          {!this.state.editing
-            ? (<Grid item xs={12} sm={12}>
-              {/* User Form */}
-              <AddUser />
-            </Grid>)
-            : (<Grid item xs={12} sm={12}>
-              {/* User Form */}
-              <UserTable />
-            </Grid>)
-          }
+          <React.Fragment>
+            {!this.state.editing
+              ? (
+                <AddUser />
+              )
+              : (
+                <UserMobileTable />
+              )
+            }
+            <UserMobileDrawer handleChange={this.handleChange} />
+          </React.Fragment>
         </Hidden>
       </Grid>
     )
   }
 }
 
-// UserComponent.propTypes = {
-// }
+UserComponent.propTypes = {
+  // classes: PropTypes.object,
+}
 
 export default withStyles(styles)(UserComponent)

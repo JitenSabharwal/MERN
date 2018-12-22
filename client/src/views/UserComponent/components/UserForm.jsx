@@ -73,7 +73,6 @@ class Form extends React.Component {
       // Getting default from constants
       imageUrl = DEFAULT_URL
     }
-    console.log(imageUrl)
     return (
       <div className={classes.controll}>
         <form id='userForm' className={classes.form} onSubmit={handleSubmit(this.addUser)}>
