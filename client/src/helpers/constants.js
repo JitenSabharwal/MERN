@@ -15,3 +15,5 @@ export const USER_TABLE_HEADS = [
   { id: 'url', numeric: false, disablePadding: false, label: 'Profile' },
 ]
 export const DEFAULT_URL = '/uploads/default.jpeg'
+export const MAX_LENGTH = 30
+export const NAME_REGEX = /^[a-zA-Z ]{2,30}$/

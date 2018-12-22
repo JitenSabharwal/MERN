@@ -22,13 +22,15 @@ export const configureStoreAsync = () => {
       return store
     })
     .catch((error) => {
+      if (error) {
+        // console.log('opened with error', error)
+      }
       const store = createStore(
         rootReducer,
         initialState,
         applyMiddleware(...middleware)
         // composeWithDevTools(applyMiddleware(...middleware))
       )
-      console.log('opened with error', error)
       return store
     })
 }

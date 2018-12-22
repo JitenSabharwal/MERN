@@ -64,7 +64,6 @@ export const loadInitailState = (url) => {
         }
       })
       .catch(err => {
-        console.log(err)
         reject(new Error('Error: ', err))
       })
   })

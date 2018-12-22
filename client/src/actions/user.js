@@ -72,7 +72,7 @@ export const addUser = (data) => {
         }
         dispatch(requestSucess(data, ADD_USER_SUCCESS))
       })
-      .catch(err => console.log('Error: ', err))
+      .catch(Promise.reject)
   }
 }
 
@@ -98,7 +98,7 @@ export const updateUser = (data, userId) => {
         }
         dispatch(requestSucess(data, UPDATE_USER_SUCCESS))
       })
-      .catch(err => console.log('Error: ', err))
+      .catch(Promise.reject)
   }
 }
 

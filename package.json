@@ -8,7 +8,8 @@
     "start:prod": "node ./bin/app",
     "build": "node scripts/build.js",
     "test": "jest --verbose",
-    "snapshot": "jest --updateSnapshot"
+    "snapshot": "jest --updateSnapshot",
+    "dev": "node scripts/start.js" 
   },
   "author": "Jiten Sabharwal",
   "license": "ISC",
