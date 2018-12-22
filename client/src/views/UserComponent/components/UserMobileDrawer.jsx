@@ -37,8 +37,8 @@ class SimpleBottomNavigation extends React.Component {
         showLabels
         className={classes.root}
       >
-        <BottomNavigationAction label='Favorites' icon={<TextFormat />} />
-        <BottomNavigationAction label='Recents' icon={<TableChart />} />
+        <BottomNavigationAction label='User Form' icon={<TextFormat />} />
+        <BottomNavigationAction label='User Table' icon={<TableChart />} />
       </BottomNavigation>
     )
   }
