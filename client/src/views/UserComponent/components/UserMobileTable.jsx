@@ -10,18 +10,24 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import Checkbox from '@material-ui/core/Checkbox'
 import Avatar from '@material-ui/core/Avatar'
 import { connect } from 'react-redux'
-import { selectUser, deleteUser, deleteAllUsers } from '../../../actions'
+import { selectUser } from '../../../actions'
 import {findUser} from '../../../helpers/util'
+import {
+// Delete
+} from '@material-ui/icons'
 
 const styles = theme => ({
   root: {
     width: '100%',
     maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
+    height: '90%',
+    overflow: 'auto',
+    position: 'absolute',
   },
 })
 
-class CheckboxListSecondary extends React.Component {
+class UserCheckList extends React.Component {
   state = {
     checked: this.props.selected._id ? [this.props.selected._id] : [],
     edit: false,
@@ -44,7 +50,9 @@ class CheckboxListSecondary extends React.Component {
       checked: newChecked,
     })
   };
-
+  handleDelete = value => () => {
+    this.props.deleteUser(value)
+  }
   render () {
     const { classes, data } = this.props
     const primaryText = (value) => {
@@ -85,13 +93,14 @@ class CheckboxListSecondary extends React.Component {
   }
 }
 
-CheckboxListSecondary.propTypes = {
+UserCheckList.propTypes = {
   classes: PropTypes.object.isRequired,
   data: PropTypes.array.isRequired,
   selectUser: PropTypes.func,
+  deleteUser: PropTypes.func,
   selected: PropTypes.object,
 }
-const UserTable = withStyles(styles)(CheckboxListSecondary)
+const UserList = withStyles(styles)(UserCheckList)
 
 const mapStateToProps = (state) => {
   return {
@@ -101,4 +110,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, {selectUser, deleteUser, deleteAllUsers})(UserTable)
+export default connect(mapStateToProps, {selectUser})(UserList)

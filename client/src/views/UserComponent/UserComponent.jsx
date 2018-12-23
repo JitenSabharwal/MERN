@@ -4,9 +4,8 @@ import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import { Hidden } from '@material-ui/core'
 import UserTable from './components/UserTable.jsx'
-import UserMobileTable from './components/UserMobileTable.jsx'
 import AddUser from './components/UserForm.jsx'
-import UserMobileDrawer from './components/UserMobileDrawer.jsx'
+import UserMobileComponent from './components/UserMobileView.jsx'
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -43,17 +42,7 @@ class UserComponent extends React.Component {
         </Hidden>
         {/* For Smaller Screens */}
         <Hidden smUp>
-          <React.Fragment>
-            {!this.state.editing
-              ? (
-                <AddUser />
-              )
-              : (
-                <UserMobileTable />
-              )
-            }
-            <UserMobileDrawer handleChange={this.handleChange} />
-          </React.Fragment>
+          <UserMobileComponent />
         </Hidden>
       </Grid>
     )
