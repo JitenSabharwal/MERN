@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const helmet = require('helmet')
 const bodyParser = require('body-parser')
+// eslint-disable-next-line no-unused-vars
 const mongoDb = require('./utils/db/mongo')
 // Routers
 const user = require('./routes/user')

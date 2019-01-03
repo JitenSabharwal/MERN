@@ -126,8 +126,8 @@ class EnhancedTable extends React.Component {
                       <TableCell padding='checkbox'>
                         <Checkbox checked={isSelected} />
                       </TableCell>
-                      <TableCell component='th' scope='row' padding='none'>
-                        {n.firstName}
+                      <TableCell component='th' scope='row' padding='none' >
+                        {n.firstName.length > 30 ? n.firstName.substring(0, 25) + '... ' : n.firstName}
                       </TableCell>
                       <TableCell padding='none'>{n.lastName}</TableCell>
                       <TableCell padding='none'>{n.hobbies}</TableCell>
